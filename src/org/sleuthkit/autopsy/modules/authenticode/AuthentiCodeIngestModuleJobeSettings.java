@@ -17,7 +17,7 @@ public class AuthentiCodeIngestModuleJobeSettings implements IngestModuleIngestJ
     
 
     private boolean sha1Enabled = true;
-    private boolean sha256Enabled = false;
+    private boolean sha256Enabled = true;
     private boolean sha512Enabled = false;
             
     

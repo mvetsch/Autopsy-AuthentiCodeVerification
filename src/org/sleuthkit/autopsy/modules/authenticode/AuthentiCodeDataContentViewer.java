@@ -23,7 +23,7 @@ import org.sleuthkit.datamodel.TskCoreException;
 
 @ServiceProvider(service = DataContentViewer.class)
 public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements DataContentViewer {
-    
+
     public AuthentiCodeDataContentViewer() {
         initComponents();
     }
@@ -148,13 +148,15 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
             try {
                 SleuthkitCase skCase = Case.getCurrentCase().getSleuthkitCase();
                 List<ContentTag> contenttags = skCase.getContentTagsByContent(f);
-                for(ContentTag tag : contenttags) {
-                    if(tag.getName().getDescription().equals("Kind of AuthentiCode TagName")) { 
-                        Long catalogFileId = Long.getLong(tag.getComment().substring(tag.getComment().lastIndexOf('#') + 1));
+                for (ContentTag tag : contenttags) {
+                    if (tag.getName().getDescription().equals("Kind of AuthentiCode TagName")) {
+                        int ni = tag.getComment().lastIndexOf('#') + 1;
+                        String ns = tag.getComment().substring(ni);
+                        Long catalogFileId = Long.parseLong(ns);
                         AbstractFile abstractFile = skCase.getAbstractFileById(catalogFileId);
-                        CatalogFile catFile  = AuthentiCodeHelper.getCataLogFile(abstractFile);
-                        drawSingerInformation(catFile.getCert(), abstractFile.getName());             
-                        
+                        CatalogFile catFile = AuthentiCodeHelper.getCataLogFile(abstractFile);
+                        drawSingerInformation(catFile.getCert(), abstractFile.getName());
+
                     }
                 }
             } catch (TskCoreException ex) {
@@ -189,14 +191,19 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
 
     @Override
     public void resetComponent() {
-        System.out.print(true);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String empty = "No signature found";
+        signatureTypeLabel.setText(empty);
+        signerSubjectlabel.setText(empty);
+        issuerSubjectlabel.setText(empty);
+        validFromLabel.setText(empty);
+        validUntilLabel.setText(empty);
+
     }
 
     @Override
     public boolean isSupported(Node node) {
         AbstractFile a = node.getLookup().lookup(AbstractFile.class);
-        return a !=  null && (!a.isDir()) && a.isFile();
+        return a != null && (!a.isDir()) && a.isFile();
     }
 
     @Override
@@ -205,10 +212,10 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     }
 
     private void drawSingerInformation(X509CertificateHolder cert, String fileName) {
-           signatureTypeLabel.setText("Signed Signature found in " + fileName);
-           signatureTypeLabel.setText(cert.getSubject().toString());
-           issuerSubjectlabel.setText(cert.getIssuer().toString());
-           validFromLabel.setText(cert.getNotBefore().toString());
-           validUntilLabel.setText(cert.getNotAfter().toString());           
+        signatureTypeLabel.setText(fileName);
+        signerSubjectlabel.setText(cert.getSubject().toString());
+        issuerSubjectlabel.setText(cert.getIssuer().toString());
+        validFromLabel.setText(cert.getNotBefore().toString());
+        validUntilLabel.setText(cert.getNotAfter().toString());
     }
 }

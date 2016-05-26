@@ -51,13 +51,14 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
     private LinkedList<Content> catalogFiles;
     private LinkedList<CatalogFile> parsedCatalogFiles;
     private HashTree hashTree = new HashTree();
-    ;
+
     private HashMap<Long, List<Content>> matchedFileIds = new HashMap<>();
 
-    HashMap<Long, MessageDigest> sha256digestInstances;
+    HashMap<Long, MessageDigest> digestInstances;
     volatile int hashedFilesCounter;
 
     HashMap<String, TagName> tagMap = new HashMap<>();
+    ForkJoinPool hashTaskThreadPool = new ForkJoinPool();
 
     TagsManager tagsManager = Case.getCurrentCase().getServices().getTagsManager();
 
@@ -71,7 +72,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
         catalogFiles = new LinkedList<>();
         parsedCatalogFiles = new LinkedList<>();
 
-        sha256digestInstances = new HashMap<>();
+        digestInstances = new HashMap<>();
 
     }
 
@@ -82,26 +83,39 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
             traverseRecursive(dataSource);
 
             readCatalogFiles(catalogFiles, progressBar);
-            hashTree.say();
             catalogFiles = null;
 
             int c = hashTree.count();
             System.out.println(c);
 
-            progressBar.progress("compute SHA-256 hashes");
-            progressBar.switchToIndeterminate();
-            hashTheContent(dataSource, progressBar);
+            if (settings.isSha1Enabled()) {
+                InitHashFields(progressBar, "SHA-1");
+                hashTheContent(dataSource, progressBar, "SHA-1");
+            }
 
-            c = matchedFileIds.size();
-            System.out.println(c);
+            if (settings.isSha256Enabled()) {
+                InitHashFields(progressBar, "SHA-256");
+                hashTheContent(dataSource, progressBar, "SHA-256");
+            }
 
-            System.out.println("done");
+            if (settings.isSha512Enabled()) {
+                InitHashFields(progressBar, "SHA-512");
+                hashTheContent(dataSource, progressBar, "SHA-512");
+            }
+
         } catch (TskCoreException ex) {
             Exceptions.printStackTrace(ex);
             return ProcessResult.ERROR;
         }
 
         return ProcessResult.OK;
+    }
+
+    private void InitHashFields(DataSourceIngestModuleProgress progressBar, String alg) {
+        digestInstances = new HashMap<>();
+        hashTaskThreadPool = new ForkJoinPool();
+        progressBar.progress("compute " + alg + " hashes");
+        progressBar.switchToIndeterminate();
     }
 
     private void traverseRecursive(Content content) throws TskCoreException {
@@ -142,19 +156,17 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
     private void readCatalogFiles(LinkedList<Content> catalogFiles, DataSourceIngestModuleProgress progressBar) {
         progressBar.switchToIndeterminate();
         progressBar.progress("Reading catalog files");
-        for (Content catalogFile : catalogFiles) {
+        catalogFiles.stream().forEach(catalogFile -> {
             try {
                 introduceCatalogFile(catalogFile);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-        }
+        });
     }
 
-    ForkJoinPool hashTaskThreadPool = new ForkJoinPool();
-
-    private void hashTheContent(Content content, DataSourceIngestModuleProgress progressBar) {
-        hashTheContentRec(content);
+    private void hashTheContent(Content content, DataSourceIngestModuleProgress progressBar, String alg) {
+        hashTheContentRec(content, alg);
         int amountOfTasks = hashTaskThreadPool.getQueuedSubmissionCount();
         progressBar.switchToDeterminate(amountOfTasks);
 
@@ -162,7 +174,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
         try {
             while (!hashTaskThreadPool.awaitTermination(10, TimeUnit.SECONDS)) {
                 progressBar.progress(amountOfTasks - hashTaskThreadPool.getQueuedSubmissionCount());
-                progressBar.progress("Compute SHA Hashes");
+                progressBar.progress("Compute " + alg + " Hashes");
             }
 
         } catch (InterruptedException ex) {
@@ -205,13 +217,13 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
         });
     }
 
-    private void hashTheContentRec(Content content) {
+    private void hashTheContentRec(Content content, String alg) {
         if (AuthentiCodeHelper.isRealFile(content)) {
 
             hashTaskThreadPool.submit(() -> {
                 byte[] hash;
                 try {
-                    hash = computeHash(content);
+                    hash = computeHash(content, alg);
                     hashedFilesCounter++;
                 } catch (TskCoreException e) {
                     return;
@@ -226,7 +238,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
         }
         try {
             for (Content c : content.getChildren()) {
-                hashTheContentRec(c);
+                hashTheContentRec(c, alg);
             }
         } catch (TskCoreException e) {
             System.err.print(e);
@@ -248,16 +260,16 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
         }
     }
 
-    private byte[] computeHash(Content content) throws TskCoreException {
+    private byte[] computeHash(Content content, String alg) throws TskCoreException {
         long threadId = Thread.currentThread().getId();
-        if (sha256digestInstances.get(threadId) == null) {
+        if (digestInstances.get(threadId) == null) {
             try {
-                sha256digestInstances.put(threadId, MessageDigest.getInstance("SHA-256"));
+                digestInstances.put(threadId, MessageDigest.getInstance(alg));
             } catch (NoSuchAlgorithmException ex) {
                 // does not happen
             }
         }
-        MessageDigest sha256digest = sha256digestInstances.get(threadId);
+        MessageDigest sha256digest = digestInstances.get(threadId);
         sha256digest.reset();
         sha256digest.update(AuthentiCodeHelper.getContent((AbstractFile) content));
         hashedFilesCounter++;

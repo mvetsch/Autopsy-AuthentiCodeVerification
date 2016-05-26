@@ -1,0 +1,12 @@
+<ivy-module version="2.0">
+    <info organisation="org.sleuthkit.autopsy.modules" module="virustotalonlinecheck"/>
+    <dependencies> 
+	<!-- http://mvnrepository.com/artifact/commons-codec/commons-codec -->
+	<dependency org="commons-codec" name="commons-codec" rev="1.9"/>
+
+	<!-- http://mvnrepository.com/artifact/com.zenjava/javafx-maven-plugin -->
+	<dependency org="com.zenjava" name="javafx-maven-plugin" rev="1.5"/>
+
+    </dependencies>
+</ivy-module>
+

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sleuthkit.autopsy.modules.authenticode;
 
 import org.openide.util.lookup.ServiceProvider;
@@ -13,10 +8,6 @@ import org.sleuthkit.autopsy.ingest.IngestModuleGlobalSettingsPanel;
 import org.sleuthkit.autopsy.ingest.IngestModuleIngestJobSettings;
 import org.sleuthkit.autopsy.ingest.IngestModuleIngestJobSettingsPanel;
 
-/**
- *
- * @author root
- */
 @ServiceProvider(service = IngestModuleFactory.class)
 public class AuthentiCodeIngestModuleFactory implements IngestModuleFactory {
 
@@ -72,13 +63,11 @@ public class AuthentiCodeIngestModuleFactory implements IngestModuleFactory {
 
     @Override
     public boolean isFileIngestModuleFactory() {
-        return false;// true;
+        return true;
     }
 
     @Override
     public FileIngestModule createFileIngestModule(IngestModuleIngestJobSettings settings) {
         return new AuthentiCodeIngestModule();
     }
-
-    
 }

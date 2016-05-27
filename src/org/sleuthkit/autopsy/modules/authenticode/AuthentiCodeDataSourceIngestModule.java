@@ -196,7 +196,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
                 List<Content> clist = matchedFileIds.get(catalogId);
                 clist.stream().forEach(targetFile -> {
                     try {
-                        tagsManager.addContentTag(targetFile, tagName, "Signed by " + catalogFileName + " #" + catalogId);
+                        AuthentiCodeHelper.addContentTag(targetFile, tagName, "Signed by " + catalogFileName + " #" + catalogId);
                     } catch (TskCoreException ex) {
                         Exceptions.printStackTrace(ex);
                     }

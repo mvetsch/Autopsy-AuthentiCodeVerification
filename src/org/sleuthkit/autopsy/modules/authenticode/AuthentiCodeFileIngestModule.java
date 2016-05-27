@@ -27,7 +27,7 @@ public class AuthentiCodeFileIngestModule implements FileIngestModule {
                 if (ver.isCorrectlySigned()) {
                     String subject = ver.getCert().getSubject().toString();
                     TagName authentiCodeTag = AuthentiCodeHelper.createOrGetTag(subject);
-                    AuthentiCodeHelper.addContentTag(file, authentiCodeTag);
+                    AuthentiCodeHelper.addContentTag(file, authentiCodeTag, "Embedded Signature");
                 }
 
             }

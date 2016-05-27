@@ -95,9 +95,13 @@ public class AuthentiCodeHelper {
         tagMap.put(tagNameString, newTag);
         return newTag;
     }
-    
-    public static synchronized void addContentTag(Content file, TagName tag) throws TskCoreException{ 
+
+    public static synchronized void addContentTag(Content file, TagName tag) throws TskCoreException {
         tagsManager.addContentTag(file, tag);
+    }
+
+    public static synchronized void addContentTag(Content file, TagName tag, String comment) throws TskCoreException {
+        tagsManager.addContentTag(file, tag, comment);
     }
 
 }

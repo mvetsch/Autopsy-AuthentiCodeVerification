@@ -9,8 +9,10 @@ import java.awt.Component;
 import java.io.IOException;
 import java.util.List;
 import net.jsign.CatalogFile;
+import net.jsign.PEVerifier;
 import net.jsign.bouncycastle.cert.X509CertificateHolder;
 import net.jsign.bouncycastle.cms.CMSException;
+import net.jsign.pe.PEFile;
 import org.openide.nodes.Node;
 import org.openide.util.Exceptions;
 import org.openide.util.lookup.ServiceProvider;
@@ -23,6 +25,8 @@ import org.sleuthkit.datamodel.TskCoreException;
 
 @ServiceProvider(service = DataContentViewer.class)
 public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements DataContentViewer {
+
+    SleuthkitCase skCase = Case.getCurrentCase().getSleuthkitCase();
 
     public AuthentiCodeDataContentViewer() {
         initComponents();
@@ -141,31 +145,40 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
 
     @Override
     public void setNode(Node selectedNode) {
-        AbstractFile f = selectedNode.getLookup().lookup(AbstractFile.class);
-        if (f == null) {
+        AbstractFile abstractFile = selectedNode.getLookup().lookup(AbstractFile.class);
+        if (abstractFile == null) {
             signerSubjectlabel.setText("This node is not Supported");
         } else {
-            try {
-                SleuthkitCase skCase = Case.getCurrentCase().getSleuthkitCase();
-                List<ContentTag> contenttags = skCase.getContentTagsByContent(f);
-                for (ContentTag tag : contenttags) {
-                    if (tag.getName().getDescription().equals("Kind of AuthentiCode TagName")) {
+            X509CertificateHolder signerCert = getSignerCert(abstractFile);
+            drawSingerInformation(signerCert, abstractFile.getName());
+        }
+    }
+
+    private X509CertificateHolder getSignerCert(AbstractFile abstractFile) throws NumberFormatException {
+        try {
+
+            List<ContentTag> contenttags = skCase.getContentTagsByContent(abstractFile);
+            for (ContentTag tag : contenttags) {
+                if (tag.getName().getDescription().equals("Kind of AuthentiCode TagName")) {
+                    String tagComment = tag.getComment();
+                    if (tagComment.matches(".*#[0-9]*")) {
                         int ni = tag.getComment().lastIndexOf('#') + 1;
                         String ns = tag.getComment().substring(ni);
                         Long catalogFileId = Long.parseLong(ns);
-                        AbstractFile abstractFile = skCase.getAbstractFileById(catalogFileId);
-                        CatalogFile catFile = AuthentiCodeHelper.getCataLogFile(abstractFile);
-                        drawSingerInformation(catFile.getCert(), abstractFile.getName());
-
+                        AbstractFile abstractCatalogFile = skCase.getAbstractFileById(catalogFileId);
+                        CatalogFile catFile = AuthentiCodeHelper.getCataLogFile(abstractCatalogFile);
+                        return catFile.getCert();
+                    } else {
+                        return new PEVerifier(new PEFile(new PEInputAbstractFile(abstractFile))).getCert();
                     }
                 }
-            } catch (TskCoreException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (CMSException ex) {
-                Exceptions.printStackTrace(ex);
             }
+        } catch (TskCoreException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (CMSException ex) {
+            Exceptions.printStackTrace(ex);
         }
     }
 

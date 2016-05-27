@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.sleuthkit.autopsy.modules.authenticode;
 
 import java.io.IOException;
@@ -204,11 +199,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
                     }
                 });
 
-            } catch (TskCoreException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (CMSException ex) {
+            } catch (TskCoreException | IOException | CMSException ex) {
                 Exceptions.printStackTrace(ex);
             }
         });

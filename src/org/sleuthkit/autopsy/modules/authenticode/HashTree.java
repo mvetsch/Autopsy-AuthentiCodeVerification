@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.sleuthkit.autopsy.modules.authenticode;
 
 import java.util.Arrays;
@@ -10,10 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javafx.util.Pair;
 
-/**
- *
- * @author root
- */
 class HashTree {
 
     private final int depth = 2;

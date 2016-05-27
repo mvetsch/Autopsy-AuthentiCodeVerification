@@ -6,11 +6,16 @@
 package org.sleuthkit.autopsy.modules.authenticode;
 
 import java.io.IOException;
+import java.util.HashMap;
 import net.jsign.CatalogFile;
 import net.jsign.bouncycastle.cms.CMSException;
 import org.apache.commons.codec.binary.Hex;
+import org.openide.util.Exceptions;
+import org.sleuthkit.autopsy.casemodule.Case;
+import org.sleuthkit.autopsy.casemodule.services.TagsManager;
 import org.sleuthkit.datamodel.AbstractFile;
 import org.sleuthkit.datamodel.Content;
+import org.sleuthkit.datamodel.TagName;
 import org.sleuthkit.datamodel.TskCoreException;
 import org.sleuthkit.datamodel.TskData;
 
@@ -19,6 +24,9 @@ import org.sleuthkit.datamodel.TskData;
  * @author root
  */
 public class AuthentiCodeHelper {
+
+    private static HashMap<String, TagName> tagMap = new HashMap<>();
+    private static TagsManager tagsManager = Case.getCurrentCase().getServices().getTagsManager();
 
     static CatalogFile getCataLogFile(AbstractFile abstractFile) throws TskCoreException, IOException, CMSException {
         byte[] fileContent = getContent(abstractFile);
@@ -58,6 +66,38 @@ public class AuthentiCodeHelper {
 
     static String getDigestString(byte[] d) {
         return new String(Hex.encodeHex(d));
+    }
+
+    public static synchronized TagName createOrGetTag(String tagNameString) {
+        if (tagMap.containsKey(tagNameString)) {
+            return tagMap.get(tagNameString);
+
+        }
+
+        TagName newTag = null;
+        try {
+            newTag = tagsManager.addTagName(tagNameString, "Kind of AuthentiCode TagName", TagName.HTML_COLOR.AQUA);
+        } catch (TagsManager.TagNameAlreadyExistsException ex) {
+            try {
+                for (TagName tagName : tagsManager.getAllTagNames()) {
+                    if (tagName.getDisplayName().equals(tagNameString)) {
+                        newTag = tagName;
+                        break;
+                    }
+                }
+            } catch (TskCoreException ex1) {
+                Exceptions.printStackTrace(ex1);
+            }
+        } catch (TskCoreException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+
+        tagMap.put(tagNameString, newTag);
+        return newTag;
+    }
+    
+    public static synchronized void addContentTag(Content file, TagName tag) throws TskCoreException{ 
+        tagsManager.addContentTag(file, tag);
     }
 
 }

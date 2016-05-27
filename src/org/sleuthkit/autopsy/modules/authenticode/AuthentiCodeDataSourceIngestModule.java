@@ -38,7 +38,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
 
     private void tagContentasUnsigned(Content content) {
         try {
-            tagsManager.addContentTag(content, createOrGetTag("Unsigned Files"), "No Signature found for this content");
+            tagsManager.addContentTag(content, AuthentiCodeHelper.createOrGetTag("Unsigned Files"), "No Signature found for this content");
         } catch (TskCoreException ex) {
             Exceptions.printStackTrace(ex);
         }
@@ -57,7 +57,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
     HashMap<Long, MessageDigest> digestInstances;
     volatile int hashedFilesCounter;
 
-    HashMap<String, TagName> tagMap = new HashMap<>();
+    
     ForkJoinPool hashTaskThreadPool = new ForkJoinPool();
 
     TagsManager tagsManager = Case.getCurrentCase().getServices().getTagsManager();
@@ -196,7 +196,7 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
                 String subject = catalogFile.getCert().getSubject().toString();
                 RDN[] x = catalogFile.getCert().getSubject().getRDNs();
 
-                TagName tagName = createOrGetTag(subject);
+                TagName tagName = AuthentiCodeHelper.createOrGetTag(subject);
 
                 List<Content> clist = matchedFileIds.get(catalogId);
                 clist.stream().forEach(targetFile -> {
@@ -284,33 +284,5 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
 
     private Long isTheHashKnownFromCatalogFile(byte[] hash) {
         return hashTree.get(hash);
-    }
-
-    private TagName createOrGetTag(String tagNameString) {
-        if (tagMap.containsKey(tagNameString)) {
-            return tagMap.get(tagNameString);
-
-        }
-
-        TagName newTag = null;
-        try {
-            newTag = tagsManager.addTagName(tagNameString, "Kind of AuthentiCode TagName", TagName.HTML_COLOR.AQUA);
-        } catch (TagsManager.TagNameAlreadyExistsException ex) {
-            try {
-                for (TagName tagName : tagsManager.getAllTagNames()) {
-                    if (tagName.getDisplayName().equals(tagNameString)) {
-                        newTag = tagName;
-                        break;
-                    }
-                }
-            } catch (TskCoreException ex1) {
-                Exceptions.printStackTrace(ex1);
-            }
-        } catch (TskCoreException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-
-        tagMap.put(tagNameString, newTag);
-        return newTag;
     }
 }

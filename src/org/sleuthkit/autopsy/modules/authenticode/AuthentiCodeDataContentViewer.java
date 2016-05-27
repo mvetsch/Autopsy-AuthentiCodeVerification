@@ -42,36 +42,36 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     private void initComponents() {
 
         signerSubjectlabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
+        signatureLocationKeyLabel = new javax.swing.JLabel();
         signatureTypeLabel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        issuerSubjectlabel = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        signerSubjectKeyLabel = new javax.swing.JLabel();
+        issuerSubjectKeyLabel = new javax.swing.JLabel();
+        issuerSubjectLabel = new javax.swing.JLabel();
+        validFromKeyLabel = new javax.swing.JLabel();
         validFromLabel = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        validUntilKeyLabel = new javax.swing.JLabel();
         validUntilLabel = new javax.swing.JLabel();
 
         org.openide.awt.Mnemonics.setLocalizedText(signerSubjectlabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.signerSubjectlabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.jLabel1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(titleLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.titleLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.jLabel2.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(signatureLocationKeyLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.signatureLocationKeyLabel.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(signatureTypeLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.signatureTypeLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.jLabel4.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(signerSubjectKeyLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.signerSubjectKeyLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.jLabel5.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(issuerSubjectKeyLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.issuerSubjectKeyLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(issuerSubjectlabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.issuerSubjectlabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(issuerSubjectLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.issuerSubjectLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.jLabel7.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(validFromKeyLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.validFromKeyLabel.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(validFromLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.validFromLabel.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.jLabel9.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(validUntilKeyLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.validUntilKeyLabel.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(validUntilLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.validUntilLabel.text")); // NOI18N
 
@@ -82,19 +82,19 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(titleLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel9))
+                            .addComponent(signatureLocationKeyLabel)
+                            .addComponent(signerSubjectKeyLabel)
+                            .addComponent(issuerSubjectKeyLabel)
+                            .addComponent(validFromKeyLabel)
+                            .addComponent(validUntilKeyLabel))
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(validUntilLabel)
                             .addComponent(validFromLabel)
-                            .addComponent(issuerSubjectlabel)
+                            .addComponent(issuerSubjectLabel)
                             .addComponent(signerSubjectlabel)
                             .addComponent(signatureTypeLabel))))
                 .addContainerGap(297, Short.MAX_VALUE))
@@ -103,26 +103,26 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(signatureLocationKeyLabel)
                     .addComponent(signatureTypeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signerSubjectlabel)
-                    .addComponent(jLabel4))
+                    .addComponent(signerSubjectKeyLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(issuerSubjectlabel))
+                    .addComponent(issuerSubjectKeyLabel)
+                    .addComponent(issuerSubjectLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(validFromKeyLabel)
                     .addComponent(validFromLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                    .addComponent(validUntilKeyLabel)
                     .addComponent(validUntilLabel))
                 .addContainerGap(216, Short.MAX_VALUE))
         );
@@ -130,16 +130,16 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel issuerSubjectlabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel issuerSubjectKeyLabel;
+    private javax.swing.JLabel issuerSubjectLabel;
+    private javax.swing.JLabel signatureLocationKeyLabel;
     private javax.swing.JLabel signatureTypeLabel;
+    private javax.swing.JLabel signerSubjectKeyLabel;
     private javax.swing.JLabel signerSubjectlabel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel validFromKeyLabel;
     private javax.swing.JLabel validFromLabel;
+    private javax.swing.JLabel validUntilKeyLabel;
     private javax.swing.JLabel validUntilLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -213,7 +213,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
         String empty = "No signature found";
         signatureTypeLabel.setText(empty);
         signerSubjectlabel.setText(empty);
-        issuerSubjectlabel.setText(empty);
+        issuerSubjectLabel.setText(empty);
         validFromLabel.setText(empty);
         validUntilLabel.setText(empty);
 
@@ -233,7 +233,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     private void drawSingerInformation(X509CertificateHolder cert, String fileName) {
         signatureTypeLabel.setText(fileName);
         signerSubjectlabel.setText(cert.getSubject().toString());
-        issuerSubjectlabel.setText(cert.getIssuer().toString());
+        issuerSubjectLabel.setText(cert.getIssuer().toString());
         validFromLabel.setText(cert.getNotBefore().toString());
         validUntilLabel.setText(cert.getNotAfter().toString());
     }

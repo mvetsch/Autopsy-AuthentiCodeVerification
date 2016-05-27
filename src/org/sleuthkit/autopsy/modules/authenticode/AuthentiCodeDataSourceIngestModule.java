@@ -15,6 +15,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 import net.jsign.CatalogFile;
 import net.jsign.SignedHashInfo;
+import net.jsign.bouncycastle.asn1.x500.RDN;
 import net.jsign.bouncycastle.cms.CMSException;
 import org.openide.util.Exceptions;
 import org.sleuthkit.autopsy.casemodule.Case;
@@ -190,13 +191,14 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
                 CatalogFile catalogFile = AuthentiCodeHelper.getCataLogFile(abstractCatalogFile);
                 String catalogFileName = abstractCatalogFile.getName();
                 String subject = catalogFile.getCert().getSubject().toString();
+                RDN[] x = catalogFile.getCert().getSubject().getRDNs();
 
                 TagName tagName = AuthentiCodeHelper.createOrGetTag(subject);
 
                 List<Content> clist = matchedFileIds.get(catalogId);
                 clist.stream().forEach(targetFile -> {
                     try {
-                        AuthentiCodeHelper.addContentTag(targetFile, tagName, "Signed by " + catalogFileName + " #" + catalogId);
+                        tagsManager.addContentTag(targetFile, tagName, "Signed by " + catalogFileName + " #" + catalogId);
                     } catch (TskCoreException ex) {
                         Exceptions.printStackTrace(ex);
                     }

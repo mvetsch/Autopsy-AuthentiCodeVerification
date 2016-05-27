@@ -190,12 +190,12 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
 
     @Override
     public String getTitle() {
-        return "AuthentiCode";
+        return org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.registerName");
     }
 
     @Override
     public String getToolTip() {
-        return "mein ToolTipp";
+        return org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.toolTipp");
     }
 
     @Override

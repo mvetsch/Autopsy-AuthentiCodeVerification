@@ -147,14 +147,19 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     public void setNode(Node selectedNode) {
         AbstractFile abstractFile = selectedNode.getLookup().lookup(AbstractFile.class);
         if (abstractFile == null) {
-            signerSubjectlabel.setText("This node is not Supported");
+
         } else {
-            X509CertificateHolder signerCert = getSignerCert(abstractFile);
-            drawSingerInformation(signerCert, abstractFile.getName());
+            X509CertificateHolder signerCert;
+            try {
+                signerCert = getSignerCert(abstractFile);
+                drawSingerInformation(signerCert, abstractFile.getName());
+            } catch (Exception ex) {
+                signerSubjectlabel.setText(ex.getMessage());
+            }
         }
     }
 
-    private X509CertificateHolder getSignerCert(AbstractFile abstractFile) throws NumberFormatException {
+    private X509CertificateHolder getSignerCert(AbstractFile abstractFile) throws Exception {
         try {
 
             List<ContentTag> contenttags = skCase.getContentTagsByContent(abstractFile);
@@ -162,24 +167,25 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
                 if (tag.getName().getDescription().equals("Kind of AuthentiCode TagName")) {
                     String tagComment = tag.getComment();
                     if (tagComment.matches(".*#[0-9]*")) {
-                        int ni = tag.getComment().lastIndexOf('#') + 1;
-                        String ns = tag.getComment().substring(ni);
-                        Long catalogFileId = Long.parseLong(ns);
-                        AbstractFile abstractCatalogFile = skCase.getAbstractFileById(catalogFileId);
-                        CatalogFile catFile = AuthentiCodeHelper.getCataLogFile(abstractCatalogFile);
-                        return catFile.getCert();
+                        return getCatalogFileCert(tag);
                     } else {
                         return new PEVerifier(new PEFile(new PEInputAbstractFile(abstractFile))).getCert();
                     }
                 }
             }
-        } catch (TskCoreException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (CMSException ex) {
+        } catch (TskCoreException | IOException | CMSException ex) {
             Exceptions.printStackTrace(ex);
         }
+        throw new Exception("no signer cert found");
+    }
+
+    private X509CertificateHolder getCatalogFileCert(ContentTag tag) throws CMSException, TskCoreException, NumberFormatException, IOException {
+        int ni = tag.getComment().lastIndexOf('#') + 1;
+        String ns = tag.getComment().substring(ni);
+        Long catalogFileId = Long.parseLong(ns);
+        AbstractFile abstractCatalogFile = skCase.getAbstractFileById(catalogFileId);
+        CatalogFile catFile = AuthentiCodeHelper.getCataLogFile(abstractCatalogFile);
+        return catFile.getCert();
     }
 
     @Override

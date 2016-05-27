@@ -41,7 +41,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        signerSubjectlabel = new javax.swing.JLabel();
+        signerSubjectLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
         signatureLocationKeyLabel = new javax.swing.JLabel();
         signatureTypeLabel = new javax.swing.JLabel();
@@ -53,7 +53,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
         validUntilKeyLabel = new javax.swing.JLabel();
         validUntilLabel = new javax.swing.JLabel();
 
-        org.openide.awt.Mnemonics.setLocalizedText(signerSubjectlabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.signerSubjectlabel.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(signerSubjectLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.signerSubjectLabel.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(titleLabel, org.openide.util.NbBundle.getMessage(AuthentiCodeDataContentViewer.class, "AuthentiCodeDataContentViewer.titleLabel.text")); // NOI18N
 
@@ -95,7 +95,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
                             .addComponent(validUntilLabel)
                             .addComponent(validFromLabel)
                             .addComponent(issuerSubjectLabel)
-                            .addComponent(signerSubjectlabel)
+                            .addComponent(signerSubjectLabel)
                             .addComponent(signatureTypeLabel))))
                 .addContainerGap(297, Short.MAX_VALUE))
         );
@@ -110,7 +110,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
                     .addComponent(signatureTypeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(signerSubjectlabel)
+                    .addComponent(signerSubjectLabel)
                     .addComponent(signerSubjectKeyLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -135,7 +135,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     private javax.swing.JLabel signatureLocationKeyLabel;
     private javax.swing.JLabel signatureTypeLabel;
     private javax.swing.JLabel signerSubjectKeyLabel;
-    private javax.swing.JLabel signerSubjectlabel;
+    private javax.swing.JLabel signerSubjectLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel validFromKeyLabel;
     private javax.swing.JLabel validFromLabel;
@@ -154,7 +154,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
                 signerCert = getSignerCert(abstractFile);
                 drawSingerInformation(signerCert, abstractFile.getName());
             } catch (Exception ex) {
-                signerSubjectlabel.setText(ex.getMessage());
+                signerSubjectLabel.setText(ex.getMessage());
             }
         }
     }
@@ -212,7 +212,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
     public void resetComponent() {
         String empty = "No signature found";
         signatureTypeLabel.setText(empty);
-        signerSubjectlabel.setText(empty);
+        signerSubjectLabel.setText(empty);
         issuerSubjectLabel.setText(empty);
         validFromLabel.setText(empty);
         validUntilLabel.setText(empty);
@@ -232,7 +232,7 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
 
     private void drawSingerInformation(X509CertificateHolder cert, String fileName) {
         signatureTypeLabel.setText(fileName);
-        signerSubjectlabel.setText(cert.getSubject().toString());
+        signerSubjectLabel.setText(cert.getSubject().toString());
         issuerSubjectLabel.setText(cert.getIssuer().toString());
         validFromLabel.setText(cert.getNotBefore().toString());
         validUntilLabel.setText(cert.getNotAfter().toString());

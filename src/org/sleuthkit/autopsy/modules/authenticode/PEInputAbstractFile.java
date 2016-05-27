@@ -30,7 +30,7 @@ public class PEInputAbstractFile implements PEInput {
             int count = file.read(bytes, seekPosition, bytes.length);
             this.seekPosition += count;
             return count;
-            
+
         } catch (TskCoreException ex) {
             throw new IOException();
         }
@@ -39,7 +39,7 @@ public class PEInputAbstractFile implements PEInput {
     @Override
     public int read(byte[] bytes, int offset, int length) throws IOException {
         try {
-            int count = file.read(bytes, offset, length);
+            int count = file.read(bytes, seekPosition + offset, length);
             this.seekPosition += count;
             return count;
         } catch (TskCoreException ex) {
@@ -51,11 +51,11 @@ public class PEInputAbstractFile implements PEInput {
     public int read() throws IOException {
         byte[] buffer = new byte[1];
         try {
-            if(file.read(buffer, seekPosition, 1) != 1) { 
+            if (file.read(buffer, seekPosition, 1) != 1) {
                 return -1;
             }
             this.seekPosition++;
-            
+
             return buffer[0] & 0xFF;
         } catch (TskCoreException ex) {
             throw new IOException();
@@ -69,7 +69,7 @@ public class PEInputAbstractFile implements PEInput {
 
     @Override
     public long readDWord() throws IOException {
-                   int ch1 = this.read();
+        int ch1 = this.read();
         int ch2 = this.read();
         int ch3 = this.read();
         int ch4 = this.read();
@@ -86,7 +86,8 @@ public class PEInputAbstractFile implements PEInput {
         if ((ch1 | ch2) < 0) {
             throw new EOFException();
         }
-        return 0xffff & (ch1) + (ch2 << 8);    }
+        return 0xffff & (ch1) + (ch2 << 8);
+    }
 
     @Override
     public long readQWord() throws IOException {
@@ -106,7 +107,7 @@ public class PEInputAbstractFile implements PEInput {
 
     @Override
     public void close() throws IOException {
-         
+
     }
 
     @Override

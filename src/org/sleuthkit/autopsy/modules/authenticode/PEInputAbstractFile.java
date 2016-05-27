@@ -68,6 +68,16 @@ public class PEInputAbstractFile implements PEInput {
     }
 
     @Override
+    public int readWord() throws IOException {
+        int ch1 = this.read();
+        int ch2 = this.read();
+        if ((ch1 | ch2) < 0) {
+            throw new EOFException();
+        }
+        return 0xffff & (ch1) + (ch2 << 8);
+    }
+
+    @Override
     public long readDWord() throws IOException {
         int ch1 = this.read();
         int ch2 = this.read();
@@ -77,16 +87,6 @@ public class PEInputAbstractFile implements PEInput {
             throw new EOFException();
         }
         return 0xffffffffL & (ch1 + (ch2 << 8) + (ch3 << 16) + (ch4 << 24));
-    }
-
-    @Override
-    public int readWord() throws IOException {
-        int ch1 = this.read();
-        int ch2 = this.read();
-        if ((ch1 | ch2) < 0) {
-            throw new EOFException();
-        }
-        return 0xffff & (ch1) + (ch2 << 8);
     }
 
     @Override

@@ -14,7 +14,7 @@ import org.sleuthkit.datamodel.AbstractFile;
 import org.sleuthkit.datamodel.TagName;
 import org.sleuthkit.datamodel.TskCoreException;
 
-public class AuthentiCodeIngestModule implements FileIngestModule {
+public class AuthentiCodeFileIngestModule implements FileIngestModule {
 
     @Override
     public ProcessResult process(AbstractFile file) {

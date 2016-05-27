@@ -68,6 +68,6 @@ public class AuthentiCodeIngestModuleFactory implements IngestModuleFactory {
 
     @Override
     public FileIngestModule createFileIngestModule(IngestModuleIngestJobSettings settings) {
-        return new AuthentiCodeIngestModule();
+        return new AuthentiCodeFileIngestModule();
     }
 }

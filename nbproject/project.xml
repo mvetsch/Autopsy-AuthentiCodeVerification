@@ -7,14 +7,6 @@
             <suite-component/>
             <module-dependencies>
                 <dependency>
-                    <code-name-base>org.openide.actions</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <implementation-version/>
-                    </run-dependency>
-                </dependency>
-                <dependency>
                     <code-name-base>org.openide.awt</code-name-base>
                     <build-prerequisite/>
                     <compile-dependency/>
@@ -52,7 +44,7 @@
                     <compile-dependency/>
                     <run-dependency>
                         <release-version>10</release-version>
-                        <specification-version>10.4</specification-version>
+                        <implementation-version/>
                     </run-dependency>
                 </dependency>
             </module-dependencies>
@@ -60,132 +52,12 @@
                 <package>org.sleuthkit.autopsy.modules.authenticode</package>
             </public-packages>
             <class-path-extension>
-                <runtime-relative-path>ext/plexus-utils-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/plexus-utils-3.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/maven-repository-metadata-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/maven-repository-metadata-3.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/plexus-sec-dispatcher-1.3.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/plexus-sec-dispatcher-1.3.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/commons-codec-1.9-javadoc.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/commons-codec-1.9-javadoc.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/javafx-maven-plugin-1.5.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/javafx-maven-plugin-1.5.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/maven-core-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/maven-core-3.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/commons-collections-3.2.1.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/commons-collections-3.2.1.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/sisu-guice-2.1.7-noaop.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/sisu-guice-2.1.7-noaop.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/aether-api-1.7.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/aether-api-1.7.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/plexus-io-2.0.3.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/plexus-io-2.0.3.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/sisu-inject-bean-1.4.2.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/sisu-inject-bean-1.4.2.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
                 <runtime-relative-path>ext/commons-codec-1.9.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/commons-codec-1.9.jar</binary-origin>
             </class-path-extension>
             <class-path-extension>
                 <runtime-relative-path>ext/jsign-1.3-SNAPSHOT.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/jsign-1.3-SNAPSHOT.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/commons-codec-1.9-sources.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/commons-codec-1.9-sources.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/plexus-interpolation-1.14.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/plexus-interpolation-1.14.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/maven-artifact-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/maven-artifact-3.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/commons-io-1.3.2.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/commons-io-1.3.2.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/classworlds-1.1-alpha-2.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/classworlds-1.1-alpha-2.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/commons-lang-2.4.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/commons-lang-2.4.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/sisu-inject-plexus-1.4.2.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/sisu-inject-plexus-1.4.2.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/aether-impl-1.7.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/aether-impl-1.7.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/maven-model-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/maven-model-3.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/plexus-container-default-1.0-alpha-9-stable-1.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/plexus-container-default-1.0-alpha-9-stable-1.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/aether-spi-1.7.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/aether-spi-1.7.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/javafx-maven-plugin-1.5-javadoc.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/javafx-maven-plugin-1.5-javadoc.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/maven-plugin-api-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/maven-plugin-api-3.0.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/velocity-1.7.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/velocity-1.7.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/javafx-maven-plugin-1.5-sources.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/javafx-maven-plugin-1.5-sources.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/aether-util-1.7.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/aether-util-1.7.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/plexus-component-annotations-1.5.5.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/plexus-component-annotations-1.5.5.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/javafx-deploy-lib-1.2.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/javafx-deploy-lib-1.2.jar</binary-origin>
-            </class-path-extension>
-            <class-path-extension>
-                <runtime-relative-path>ext/maven-model-builder-3.0.jar</runtime-relative-path>
-                <binary-origin>release/modules/ext/maven-model-builder-3.0.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

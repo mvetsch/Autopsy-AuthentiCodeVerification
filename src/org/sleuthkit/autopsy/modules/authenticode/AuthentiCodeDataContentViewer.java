@@ -21,7 +21,7 @@ import org.sleuthkit.datamodel.TskCoreException;
 @ServiceProvider(service = DataContentViewer.class)
 public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements DataContentViewer {
 
-    SleuthkitCase skCase = Case.getCurrentCase().getSleuthkitCase();
+    SleuthkitCase skCase;
 
     public AuthentiCodeDataContentViewer() {
         initComponents();
@@ -140,6 +140,9 @@ public class AuthentiCodeDataContentViewer extends javax.swing.JPanel implements
 
     @Override
     public void setNode(Node selectedNode) {
+        if (skCase == null) {
+            skCase = Case.getCurrentCase().getSleuthkitCase();
+        }
         AbstractFile abstractFile = selectedNode.getLookup().lookup(AbstractFile.class);
         if (abstractFile == null) {
 

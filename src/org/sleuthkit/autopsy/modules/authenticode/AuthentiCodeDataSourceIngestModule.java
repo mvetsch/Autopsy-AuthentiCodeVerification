@@ -80,9 +80,6 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
             readCatalogFiles(catalogFiles, progressBar);
             catalogFiles = null;
 
-            int c = hashTree.count();
-            System.out.println(c);
-
             if (settings.isSha1Enabled()) {
                 InitHashFields(progressBar, "SHA-1");
                 hashTheContent(dataSource, progressBar, "SHA-1");

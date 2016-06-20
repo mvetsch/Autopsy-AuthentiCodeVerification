@@ -135,7 +135,6 @@ class AuthentiCodeDataSourceIngestModule implements DataSourceIngestModule {
                     }
                 }
             }
-            System.out.println(hashTree.count());
         } catch (Exception ex) {
         }
 
